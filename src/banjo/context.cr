@@ -1,7 +1,7 @@
 module Banjo
   class Context
     
-    def initialize(@request : HTTP::Request)
+    def initialize(@request = HTTP::Request.new("GET", "/"))
       @_params = {} of String => String
     end
     
