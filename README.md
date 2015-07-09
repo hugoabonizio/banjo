@@ -1,4 +1,4 @@
-# Bnajo
+# Banjo
 
 TODO: Write a description here for library
 
