@@ -1,4 +1,4 @@
-# lib1
+# Bnajo
 
 TODO: Write a description here for library
 
@@ -8,14 +8,14 @@ Add it to `Projectfile`
 
 ```crystal
 deps do
-  github "[your-github-name]/lib1"
+  github "hugoabonizio/banjo"
 end
 ```
 
 ## Usage
 
 ```crystal
-require "lib1"
+require "banjo"
 ```
 
 TODO: Write usage here for library
@@ -26,7 +26,7 @@ TODO: Write instructions for development
 
 ## Contributing
 
-1. Fork it ( https://github.com/[your-github-name]/lib1/fork )
+1. Fork it ( https://github.com/hugoabonizio/banjo/fork )
 2. Create your feature branch (git checkout -b my-new-feature)
 3. Commit your changes (git commit -am 'Add some feature')
 4. Push to the branch (git push origin my-new-feature)
@@ -34,4 +34,4 @@ TODO: Write instructions for development
 
 ## Contributors
 
-- [your-github-name](https://github.com/[your-github-name])  - creator, maintainer
+- [Hugo Abonizio](https://github.com/hugoabonizio)  - creator, maintainer
