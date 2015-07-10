@@ -1,5 +1,7 @@
 # Banjo
 
+[![Build Status](https://travis-ci.org/hugoabonizio/banjo.svg?branch=master)](https://travis-ci.org/hugoabonizio/banjo)
+
 TODO: Write a description here for library
 
 ## Installation
