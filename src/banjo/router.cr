@@ -13,14 +13,16 @@ module Banjo
       with self yield
     end
     
-    def get(path, to)
-      
+    macro get(path, to)
+      register_route("GET", {{ path }}, {{ to }})
     end
     
-    macro get(path, target)
-      handler = ->(request : Banjo::Context) { {{ target.split("#").first.capitalize.id }}Controller.new(request).{{target.id.split("#").last.id}} }
-      route = Banjo::Route.new("GET", {{ path }}, {{ target.split("#").first.capitalize }}, {{ target.id.split("#").last }}, handler)
-      routes["GET"][{{ path }}] = route
+    macro register_route(method, path, target)
+      {% controller = target.split("#").first.capitalize %}
+      {% action = target.id.split("#").last %}
+      handler = ->(request : Banjo::Context) { {{ controller.id }}Controller.new(request).{{ action.id }} }
+      route = Banjo::Route.new("GET", {{ path }}, {{ controller }}, {{ action }}, handler)
+      routes[{{ method }}][{{ path }}] = route
     end
   end
 end
