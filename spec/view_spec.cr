@@ -1,8 +1,4 @@
 require "./spec_helper"
-require "http"
-
-class MyController < Banjo::Controller::Base
-end
 
 describe Banjo::View do
   it "should output ECR file" do

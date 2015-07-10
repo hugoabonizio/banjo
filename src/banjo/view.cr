@@ -18,13 +18,10 @@ module Banjo
     end
     
     macro load_ecr(file_name)
-      if File.exists? {{ file_name }}
-        ecr_output = StringIO.new("")
-        embed_ecr({{ file_name }}, "ecr_output")
-        ecr_output
-      else
-        ""
-      end
+      {% result_file_name = run("./view/load_file_if_exists", {{ file_name }}).stringify %}
+      ecr_output = StringIO.new("")
+      embed_ecr({{ result_file_name }}, "ecr_output")
+      ecr_output
     end
     
     def get_response
