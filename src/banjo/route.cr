@@ -1,10 +1,9 @@
 module Banjo
   class Route
-    getter controller
-    getter action
+    getter instance
     getter handler
     
-    def initialize(@method, @path, @controller, @action, @handler : (Banjo::Context -> ))
+    def initialize(@method, @path, @instance, @handler)
     end
   end
 end

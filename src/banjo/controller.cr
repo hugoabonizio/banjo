@@ -1,10 +1,18 @@
 module Banjo
   module Controller
     class Base
+      property context
       getter response
+      getter output
+      getter mime
+      getter code
       
-      def initialize(@context = Banjo::Context.new)
-        @response :: HTTP::Response
+      def initialize(@view = Banjo::View.new)
+        @context = Banjo::Context.new
+        @response = nil
+        @output = ""
+        @mime = "text/plain"
+        @code = 200
       end
       
       def params
@@ -13,10 +21,19 @@ module Banjo
       
       def render(text = nil, html =  nil)
         if !text.nil?
-          @response = HTTP::Response.ok("text/plain", text)
+          @output = text
         elsif !html.nil?
-          @response = HTTP::Response.ok("text/html", html)
+          @mime = "text/html"
+          @output = html
         end
+        @response = HTTP::Response.ok(@mime, @output)
+      end
+      
+      def build_response
+        if @response.nil?
+          @output = @view.content
+        end
+        @response = HTTP::Response.ok(@mime, @output)
       end
     end
   end

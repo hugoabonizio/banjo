@@ -20,8 +20,18 @@ module Banjo
     macro register_route(method, path, target)
       {% controller = target.split("#").first.capitalize %}
       {% action = target.id.split("#").last %}
-      handler = ->(request : Banjo::Context) { {{ controller.id }}Controller.new(request).{{ action.id }} }
-      route = Banjo::Route.new("GET", {{ path }}, {{ controller }}, {{ action }}, handler)
+      view = Banjo::View.new
+      view.loading do
+        set_content(load_ecr("{{ Banjo::VIEWS_PATH.id }}{{ controller.downcase.id }}/{{ action.downcase.id }}.ecr"))
+      end
+  
+      instance = {{ controller.id }}Controller.new(view)
+      handler = ->(context : Banjo::Context) {
+        instance.context = context
+        instance.{{ action.id }}
+      }
+      
+      route = Banjo::Route.new("GET", {{ path }}, instance, handler)
       routes[{{ method }}][{{ path }}] = route
     end
   end

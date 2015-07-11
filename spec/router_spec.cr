@@ -23,6 +23,6 @@ describe Banjo::Router do
     router.draw do
       get "/", "my#action"
     end
-    router.routes["GET"]["/"].handler.class.to_s.should eq "(Banjo::Context -> Void)"
+    router.routes["GET"]["/"].handler.class.to_s.should eq "(Banjo::Context -> Nil)"
   end
 end
