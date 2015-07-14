@@ -3,7 +3,7 @@ require "./banjo/*"
 module Banjo
 end
 
-class Object
+struct Nil
   def each(&block)
   end
 end
