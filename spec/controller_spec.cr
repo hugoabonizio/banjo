@@ -12,6 +12,17 @@ class MyController < Banjo::Controller::Base
   
   def test_view
   end
+  
+  def with_var
+    @var1 = 4
+    @var2 = "quatro"
+    @vars = [1, 2, 3]
+  end
+end
+
+module Banjo::Router
+  get "/", "my#test_view"
+  get "/vars", "my#with_var"
 end
 
 describe Banjo::Controller::Base do
@@ -38,15 +49,24 @@ describe Banjo::Controller::Base do
   end
   
   it "should render ECR view" do
-    ENV["BANJO_VIEWS_PATH"] = "#{__DIR__}/app/views/"
-    router = Banjo::Router.new
-    router.draw do
-      get "/", "my#test_view"
-    end
-    instance = router.routes["GET"]["/"].instance
+    instance = $routes["GET"]["/"].instance
     context = Banjo::Context.new
-    router.routes["GET"]["/"].handler.call(context)
-    instance.build_response
+    $routes["GET"]["/"].handler.call(context)
     instance.output.to_s.should eq "hello from ECR"
+  end
+  
+  it "should render ECR with isntance vars" do
+    instance = $routes["GET"]["/vars"].instance
+    context = Banjo::Context.new
+    $routes["GET"]["/vars"].handler.call(context)
+    instance.output.to_s.should eq "4
+true
+
+> 1
+
+> 2
+
+> 3
+"
   end
 end

@@ -3,7 +3,7 @@ module Banjo
     class Base
       property context
       getter response
-      getter output
+      property output
       getter mime
       getter code
       
@@ -30,9 +30,6 @@ module Banjo
       end
       
       def build_response
-        if @response.nil?
-          @output = @view.content
-        end
         @response = HTTP::Response.ok(@mime, @output)
       end
     end
