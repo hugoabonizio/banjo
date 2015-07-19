@@ -1,5 +1,4 @@
 require "./spec_helper"
-require "http"
 
 class MyController < Banjo::Controller::Base
   def test_text

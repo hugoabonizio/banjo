@@ -1,3 +1,4 @@
+require "http"
 require "./banjo/*"
 
 module Banjo
