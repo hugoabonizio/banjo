@@ -1,7 +1,6 @@
 module Banjo
   class Route
-    getter instance
-    getter handler
+    getter method, path, handler
     
     def initialize(@method, @path, @handler)
     end

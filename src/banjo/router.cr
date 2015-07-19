@@ -12,6 +12,11 @@ module Banjo
       ecr_output
     end
     
+    macro root(to)
+      get("/", {{ to }})
+      post("/", {{ to }})
+    end
+
     macro get(path, to)
       register_route("GET", {{ path }}, {{ to }})
     end

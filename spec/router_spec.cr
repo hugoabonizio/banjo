@@ -3,6 +3,9 @@ require "./spec_helper"
 class MyController
   def action
   end
+  
+  def root
+  end
 end
 
 $routes = {
@@ -11,19 +14,24 @@ $routes = {
 }
 
 module Banjo::Router
-  get "/", "my#action"
-  get "/aaa", "my#action"
-  post "/bbb", "my#action"
+  root "my#action"
+  get "/test1", "my#action"
+  get "/test2", "my#action"
+  post "/test3", "my#action"
 end
 
 describe Banjo::Router do
   it "should register routes" do
-    $routes["GET"].length.should eq 2
-    $routes["POST"].length.should eq 1
+    $routes["GET"].length.should eq 3
+    $routes["POST"].length.should eq 2
   end
   
   it "should associate a handler" do
-    $routes["GET"]["/"].handler.class.to_s.should eq "(Banjo::Context -> MyController)"
-    $routes["POST"]["/bbb"].handler.class.to_s.should eq "(Banjo::Context -> MyController)"
+    $routes["GET"]["/test1"].handler.class.to_s.should eq "(Banjo::Context -> MyController)"
+    $routes["POST"]["/test3"].handler.class.to_s.should eq "(Banjo::Context -> MyController)"
+  end
+  
+  it "should register root route" do
+    $routes["GET"]["/"].path.should eq "/"
   end
 end
