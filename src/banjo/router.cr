@@ -22,8 +22,6 @@ module Banjo
     macro register_route(method, path, target)
       {% controller = target.split("#").first.capitalize %}
       {% action = target.id.split("#").last %}
-      view = Banjo::View.new
-      
 
       class ::{{ controller.id }}Controller
         def to_s_{{ action.id }}
@@ -35,16 +33,17 @@ module Banjo
         end
       end
   
-      instance = {{ controller.id }}Controller.new
+      
   
       handler = ->(context : Banjo::Context) {
+        instance = {{ controller.id }}Controller.new
         instance.context = context
         instance.{{ action.id }}
         instance.output = instance.to_s_{{ action.id }}
-        nil
+        instance
       }
       
-      route = Banjo::Route.new("GET", {{ path }}, instance, handler)
+      route = Banjo::Route.new("GET", {{ path }}, handler)
       $routes[{{ method }}][{{ path }}] = route
     end
   end

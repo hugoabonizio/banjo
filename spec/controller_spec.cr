@@ -49,17 +49,15 @@ describe Banjo::Controller::Base do
   end
   
   it "should render ECR view" do
-    instance = $routes["GET"]["/"].instance
     context = Banjo::Context.new
-    $routes["GET"]["/"].handler.call(context)
-    instance.output.to_s.should eq "hello from ECR"
+    instance = $routes["GET"]["/"].handler.call(context)
+    instance.try(&.output).to_s.should eq "hello from ECR"
   end
   
   it "should render ECR with isntance vars" do
-    instance = $routes["GET"]["/vars"].instance
     context = Banjo::Context.new
-    $routes["GET"]["/vars"].handler.call(context)
-    instance.output.to_s.should eq "4
+    instance = $routes["GET"]["/vars"].handler.call(context)
+    instance.try(&.output).to_s.should eq "4
 true
 
 > 1

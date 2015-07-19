@@ -21,6 +21,6 @@ describe Banjo::Router do
   end
   
   it "should associate a handler" do
-    $routes["GET"]["/"].handler.class.to_s.should eq "(Banjo::Context -> Nil)"
+    $routes["GET"]["/"].handler.class.to_s.should eq "(Banjo::Context -> MyController)"
   end
 end

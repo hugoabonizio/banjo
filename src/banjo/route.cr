@@ -3,7 +3,7 @@ module Banjo
     getter instance
     getter handler
     
-    def initialize(@method, @path, @instance, @handler)
+    def initialize(@method, @path, @handler)
     end
   end
 end
