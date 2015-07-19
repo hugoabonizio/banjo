@@ -15,6 +15,10 @@ module Banjo
     macro get(path, to)
       register_route("GET", {{ path }}, {{ to }})
     end
+    
+    macro post(path, to)
+      register_route("POST", {{ path }}, {{ to }})
+    end
 
     macro register_route(method, path, target)
       {% controller = target.split("#").first.capitalize %}
@@ -40,7 +44,7 @@ module Banjo
         instance
       }
       
-      route = Banjo::Route.new("GET", {{ path }}, handler)
+      route = Banjo::Route.new({{ method }}, {{ path }}, handler)
       $routes[{{ method }}][{{ path }}] = route
     end
   end
