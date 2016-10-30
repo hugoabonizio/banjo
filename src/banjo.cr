@@ -1,10 +1,20 @@
-require "http"
+require "kemal"
 require "./banjo/*"
 
 module Banjo
-end
+  module Routes
+    extend self
 
-struct Nil
-  def each(&block)
+    def draw
+      with self yield
+    end
+
+    macro get(path, to)
+      get {{path}} do |env|
+        {% controller = to.id.split("#").first %}
+        {% action = to.id.split("#").last %}
+        {{ controller.capitalize.id }}Controller.new.{{ action.id }}.as(String)
+      end
+    end
   end
 end

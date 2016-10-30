@@ -1,0 +1,13 @@
+name: banjo
+version: 0.0.1
+
+authors:
+  - Hugo Abonizio <hugo_abonizio@hotmail.com>
+
+# description: |
+#   Short description of banjo
+
+dependencies:
+  kemal:
+    github: sdogruyol/kemal
+    version: "~> 0.16.1"
